@@ -54,7 +54,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   };
 
-  const isAuthorized = user?.email === AUTHORIZED_EMAIL;
+  const AUTHORIZED_EMAILS = ["deudajm@gmail.com", "skmonbie@gmail.com"];
+
+  const isAuthorized = AUTHORIZED_EMAILS.includes(user?.email || "");
 
   const value = {
     user,

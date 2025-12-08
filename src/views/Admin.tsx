@@ -1,0 +1,264 @@
+import { useState, useEffect } from "react";
+import { Edit, Trash2, Plus, LogOut } from "lucide-react";
+import { Button } from "../components/ui/button";
+import { AdminEditModal } from "../components/AdminEditModal";
+import type { Movie } from "../utils/movieData";
+import {
+  collection,
+  getDocs,
+  addDoc,
+  updateDoc,
+  deleteDoc,
+  doc,
+} from "firebase/firestore";
+import { db } from "../firebase/firebase";
+import { toast } from "sonner";
+import { useAuth } from "../contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
+import { Toaster } from "@/components/ui/sonner";
+
+export function Admin() {
+  const [movies, setMovies] = useState<Movie[]>([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
+  const [loading, setLoading] = useState(true);
+  const { user, signOut } = useAuth();
+  const navigate = useNavigate();
+
+  const fetchMovies = async () => {
+    try {
+      setLoading(true);
+      const moviesCollection = collection(db, "movies");
+      const moviesSnapshot = await getDocs(moviesCollection);
+
+      const moviesList = moviesSnapshot.docs.map((d) => ({
+        id: d.id,
+        ...(d.data() as Omit<Movie, "id">),
+      }));
+
+      setMovies(moviesList);
+    } catch (error) {
+      console.error("Error fetching movies:", error);
+      toast.error("Failed to fetch movies");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchMovies();
+  }, []);
+
+  const handleEdit = (movie: Movie) => {
+    setSelectedMovie(movie);
+    setIsModalOpen(true);
+  };
+
+  const handleAddNew = () => {
+    setSelectedMovie(null);
+    setIsModalOpen(true);
+  };
+
+  const handleSave = async (movie: Movie) => {
+    try {
+      if (selectedMovie) {
+        // Update existing movie
+        const movieRef = doc(db, "movies", selectedMovie.id!);
+        await updateDoc(movieRef, { ...movie });
+        toast.success("Movie updated successfully!");
+      } else {
+        // Add new movie
+        await addDoc(collection(db, "movies"), movie);
+        toast.success("Movie added successfully!");
+      }
+      fetchMovies();
+    } catch (error) {
+      console.error("Error saving movie:", error);
+      toast.error("Failed to save movie");
+    }
+  };
+
+  const handleDelete = async (id: string) => {
+    if (id && window.confirm("Are you sure you want to delete this movie?")) {
+      try {
+        const movieRef = doc(db, "movies", id);
+        await deleteDoc(movieRef);
+        toast.success("Movie deleted successfully!");
+        fetchMovies();
+      } catch (error) {
+        console.error("Error deleting movie:", error);
+        toast.error("Failed to delete movie");
+      }
+    }
+  };
+
+  const handleSignOut = async () => {
+    try {
+      await signOut();
+      toast.success("Signed out successfully!");
+      navigate("/");
+    } catch (error) {
+      console.error("Error signing out:", error);
+      toast.error("Failed to sign out");
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-black text-white flex items-center justify-center">
+        <div className="text-xl">Loading...</div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-black text-white">
+      <div className="container mx-auto px-4 py-8">
+        <div className="flex justify-between items-center mb-8">
+          <div className="flex justify-between gap-4 items-center">
+            <h1 className="text-3xl">Admin</h1>
+            <p className="text-white/60 text-sm">
+              Signed in as: <span className="text-white">{user?.email}</span>
+            </p>
+            <Button
+              onClick={handleSignOut}
+              variant="outline"
+              className="border-white/20 text-white bg-white/10"
+            >
+              <LogOut className="w-4 h-4 mr-2" />
+              Sign Out
+            </Button>
+          </div>
+          <Button
+            onClick={handleAddNew}
+            className="bg-white text-black hover:bg-white/90"
+          >
+            <Plus className="w-4 h-4 mr-2" />
+            Add New Movie
+          </Button>
+        </div>
+
+        <div className="bg-white/5 rounded-lg overflow-hidden">
+          <div className="overflow-x-auto">
+            <table className="w-full">
+              <thead>
+                <tr className="border-b border-white/10">
+                  <th className="px-4 py-3 text-left">Image</th>
+                  <th className="px-4 py-3 text-left">Title</th>
+                  <th className="px-4 py-3 text-left">Type</th>
+                  <th className="px-4 py-3 text-left">Genre</th>
+                  <th className="px-4 py-3 text-left">Year</th>
+                  <th className="px-4 py-3 text-left">Rating</th>
+                  <th className="px-4 py-3 text-left">Image URL</th>
+                  <th className="px-4 py-3 text-left">Video URL</th>
+                  <th className="px-4 py-3 text-left">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {movies.map((movie) => (
+                  <tr
+                    key={movie.id}
+                    className="border-b border-white/10 hover:bg-white/5 transition-colors"
+                  >
+                    <td className="px-4 py-3">
+                      <img
+                        src={movie.image}
+                        alt={movie.title}
+                        className="w-16 h-24 object-cover rounded"
+                      />
+                    </td>
+                    <td className="px-4 py-3 max-w-xs truncate">
+                      {movie.title}
+                    </td>
+                    <td className="px-4 py-3">
+                      <span
+                        className={`px-2 py-1 rounded text-xs ${
+                          movie.type === "movie"
+                            ? "bg-blue-500/20 text-blue-400"
+                            : "bg-purple-500/20 text-purple-400"
+                        }`}
+                      >
+                        {movie.type === "movie" ? "Movie" : "TV Show"}
+                      </span>
+                    </td>
+                    <td className="px-4 py-3">{movie.genre}</td>
+                    <td className="px-4 py-3">{movie.year}</td>
+                    <td className="px-4 py-3">⭐ {movie.rating}</td>
+                    <td className="px-4 py-3">
+                      <a
+                        href={movie.image}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-blue-400 hover:underline max-w-20 block truncate"
+                      >
+                        {movie.image}
+                      </a>
+                    </td>
+                    <td className="px-4 py-3">
+                      {movie.videoUrl ? (
+                        <a
+                          href={movie.videoUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-blue-400 hover:underline max-w-20 block truncate"
+                        >
+                          {movie.videoUrl}
+                        </a>
+                      ) : (
+                        <span className="text-white/60 text-sm">
+                          No video URL
+                        </span>
+                      )}
+                    </td>
+                    <td className="px-4 py-3">
+                      <div className="flex gap-2">
+                        <Button
+                          size="sm"
+                          variant="ghost"
+                          onClick={() => handleEdit(movie)}
+                          className="hover:bg-white/10"
+                        >
+                          <Edit className="w-4 h-4" />
+                        </Button>
+                        <Button
+                          size="sm"
+                          variant="ghost"
+                          onClick={() =>
+                            movie.id ? handleDelete(movie.id) : undefined
+                          }
+                          className="hover:bg-red-500/20 text-red-400"
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </Button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <Toaster />
+
+        {movies.length === 0 && (
+          <div className="text-center py-12 text-white/60">
+            <p className="mb-4">No movies found</p>
+            <Button onClick={handleAddNew} className="bg-white text-black">
+              Add Your First Movie
+            </Button>
+          </div>
+        )}
+      </div>
+
+      <AdminEditModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        movie={selectedMovie}
+        onSave={handleSave}
+        onDelete={(id: string) => {
+          handleDelete(id);
+        }}
+      />
+    </div>
+  );
+}

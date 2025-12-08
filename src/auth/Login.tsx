@@ -26,10 +26,10 @@ export function Login() {
     setUnauthorizedEmail(null);
     try {
       const user = await signInWithGoogle();
-      if (user.email !== "deudajm@gmail.com") {
+      if (user.email !== "deudajm@gmail.com" || "skmonbie@gmail.com") {
         setUnauthorizedEmail(user.email);
         toast.error(
-          "Unauthorized email. Only deudajm@gmail.com can access the admin panel."
+          "Unauthorized email. Only deudajm@gmail.com and skmonbie@gmail.com can access the admin panel."
         );
         return;
       }

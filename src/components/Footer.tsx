@@ -8,9 +8,12 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
           {/* Brand */}
           <div>
-            <Link to="/" className="flex items-center gap-2 mb-4">
-              <div className="w-auto h-20">
-                <img src={logo} alt="sk logo" className="w-auto h-20" />
+            <Link
+              to="/"
+              className="flex items-center justify-center gap-2 mb-4"
+            >
+              <div className="w-auto sm:h-20 h-12">
+                <img src={logo} alt="sk logo" className="w-auto sm:h-20 h-12" />
               </div>
             </Link>
             <p className="text-white/60">

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import logo from "./../assets/sklogo1.png";
+import logo from "./../assets/newlogo.png";
 
 export function Footer() {
   return (
@@ -9,8 +9,8 @@ export function Footer() {
           {/* Brand */}
           <div>
             <Link to="/" className="flex items-center gap-2 mb-4">
-              <div className="w-20 h-20">
-                <img src={logo} alt="sk logo" className="w-20 h-20" />
+              <div className="w-auto h-20">
+                <img src={logo} alt="sk logo" className="w-auto h-20" />
               </div>
             </Link>
             <p className="text-white/60">

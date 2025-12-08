@@ -3,7 +3,7 @@ import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import logo from "./../assets/sklogo1.png";
+import logo from "./../assets/newlogo.png";
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -25,8 +25,8 @@ export function Header() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2">
-            <div className="w-16 h-16">
-              <img src={logo} alt="sk logo" className="w-16 h-16" />
+            <div className="w-auto h-14">
+              <img src={logo} alt="sk logo" className="w-auto h-14" />
             </div>
           </Link>
 

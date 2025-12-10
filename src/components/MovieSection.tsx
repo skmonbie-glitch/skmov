@@ -11,7 +11,7 @@ interface MovieSectionProps {
 }
 
 export function MovieSection({ title, movies }: MovieSectionProps) {
-  console.log("Rendering MovieSection:", title, movies);
+  // console.log("Rendering MovieSection:", title, movies);
 
   return (
     <section className="py-8 md:py-12">

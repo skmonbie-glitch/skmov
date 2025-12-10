@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Edit, Trash2, Plus, LogOut } from "lucide-react";
+import { Edit, Trash2, Plus, LogOut, User2 } from "lucide-react";
 import { Button } from "../components/ui/button";
 import { AdminEditModal } from "../components/AdminEditModal";
 import type { Movie } from "../utils/movieData";
@@ -114,11 +114,13 @@ export function Admin() {
   return (
     <div className="min-h-screen bg-black text-white">
       <div className="container mx-auto px-4 py-8">
-        <div className="flex justify-between items-center mb-8">
-          <div className="flex justify-between gap-4 items-center">
-            <h1 className="text-3xl">Admin</h1>
-            <p className="text-white/60 text-sm">
-              Signed in as: <span className="text-white">{user?.email}</span>
+        <h1 className="sm:text-3xl pb-2 text-xl font-semibold">Admin</h1>
+        <div className="flex justify-between flex-wrap gap-y-2 items-center mb-8">
+          <div className="flex justify-between gap-2 items-center">
+            <p className="text-white/60 sm:text-sm text-xs border-white/20 border p-2 rounded-lg ">
+              <span className="text-white flex gap-1">
+                <User2 size={16} /> {user?.email}
+              </span>
             </p>
             <Button
               onClick={handleSignOut}

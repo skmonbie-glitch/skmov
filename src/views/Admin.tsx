@@ -141,7 +141,7 @@ export function Admin() {
         </div>
 
         <div className="bg-white/5 rounded-lg overflow-hidden">
-          <div className="overflow-x-auto">
+          <div className="overflow-auto min-h-[500px]">
             <table className="w-full">
               <thead>
                 <tr className="border-b border-white/10">
@@ -218,7 +218,7 @@ export function Admin() {
                           size="sm"
                           variant="ghost"
                           onClick={() => handleEdit(movie)}
-                          className="hover:bg-white/10"
+                          className="bg-green-500/20 text-green-400"
                         >
                           <Edit className="w-4 h-4" />
                         </Button>
@@ -228,7 +228,7 @@ export function Admin() {
                           onClick={() =>
                             movie.id ? handleDelete(movie.id) : undefined
                           }
-                          className="hover:bg-red-500/20 text-red-400"
+                          className="bg-red-500/20 text-red-400"
                         >
                           <Trash2 className="w-4 h-4" />
                         </Button>

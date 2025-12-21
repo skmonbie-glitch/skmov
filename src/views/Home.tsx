@@ -32,14 +32,6 @@ export function Home() {
     fetchMovies();
   }, [fetchMovies]);
 
-  // if (loading) {
-  //   return (
-  //     <div className="flex items-center justify-center min-h-screen">
-  //       <div className="text-white text-xl">Loading movies...</div>
-  //     </div>
-  //   );
-  // }
-
   if (error) {
     return (
       <div className="flex items-center justify-center min-h-screen">

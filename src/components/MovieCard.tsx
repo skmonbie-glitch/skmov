@@ -21,7 +21,7 @@ export function MovieCard({
   videoUrl,
   featured,
   trending,
-  director, 
+  director,
   duration,
   casts,
 }: MovieCardProps) {
@@ -94,6 +94,25 @@ export function MovieCard({
           </div>
           <h3 className="text-white truncate">{title}</h3>
           <p className="text-white/60">{year}</p>
+
+          {/* <div className="w-full flex gap-2 sm:hidden">
+            <Button
+              size="sm"
+              className="flex-1 bg-white text-black hover:bg-white/90"
+              onClick={handlePlay}
+            >
+              <Play className="size-4 mr-1 fill-current" />
+              Play
+            </Button>
+            <Button
+              size="sm"
+              variant="outline"
+              className="border-white/20 text-white bg-white/10"
+              onClick={handleInfoClick}
+            >
+              <Info className="size-4" />
+            </Button>
+          </div> */}
         </div>
       </div>
       <MovieInfoModal
@@ -111,9 +130,9 @@ export function MovieCard({
           featured,
           videoUrl,
           trending,
-          director, 
-  duration,
-  casts,
+          director,
+          duration,
+          casts,
         }}
       />
     </>

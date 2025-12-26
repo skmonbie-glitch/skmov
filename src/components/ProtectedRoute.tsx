@@ -46,8 +46,7 @@ export function ProtectedRoute({ children }: ProtectedRouteProps) {
           <h2 className="text-white mb-2">Access Denied</h2>
           <p className="text-white/60 mb-6">
             Your email ({user.email}) is not authorized to access this page.
-            Only <span className="text-white">deudajm@gmail.com</span> can
-            access the admin panel.
+            Only authorized emails can access the admin panel.
           </p>
           <button
             onClick={() => window.history.back()}

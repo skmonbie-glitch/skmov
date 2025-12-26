@@ -61,7 +61,7 @@ export function Footer() {
             </ul>
           </div>
 
-          <div>
+          {/* <div>
             <h3 className="text-white mb-4">Support</h3>
             <ul className="space-y-2">
               <li>
@@ -97,7 +97,7 @@ export function Footer() {
                 </a>
               </li>
             </ul>
-          </div>
+          </div> */}
 
           {/* Social
           <div>

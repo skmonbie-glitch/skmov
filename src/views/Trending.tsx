@@ -29,7 +29,7 @@ export function Trending() {
       {/* Trending Grid */}
       <div className="container mx-auto px-4 py-8">
         <div className="mb-6">
-          <p className="text-white/60">
+          <p className="text-white/60 ">
             {trendingContent.length} trending{" "}
             {trendingContent.length === 1 ? "title" : "titles"}
           </p>
@@ -38,7 +38,7 @@ export function Trending() {
           {trendingContent.map((item, index) => (
             <div key={item.id} className="relative">
               {/* Trending Rank Badge */}
-              <div className="absolute -top-2 -left-2 z-10 size-10 rounded-full bg-white text-black flex items-center justify-center shadow-lg">
+              <div className="absolute -top-2 -left-2 z-10 size-10 rounded-full bg-white font-semibold text-gray-800 flex items-center justify-center shadow-xl">
                 <span>{index + 1}</span>
               </div>
               <MovieCard {...item} />

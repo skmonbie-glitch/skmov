@@ -14,7 +14,6 @@ export function Login() {
   const from = (location.state as any)?.from?.pathname || "/";
   const [, setUnauthorizedEmail] = useState<string | null>(null);
 
-  // Redirect if already authorized
   useEffect(() => {
     if (!authLoading && isAuthorized) {
       navigate(from, { replace: true });
@@ -31,7 +30,7 @@ export function Login() {
       if (!user.email || !allowedEmails.includes(user.email)) {
         setUnauthorizedEmail(user.email);
         toast.error(
-          "Unauthorized email. Only deudajm@gmail.com and skmonbie@gmail.com can access the admin panel."
+          "Unauthorized email. Only authorized email can access the admin panel."
         );
         return;
       }

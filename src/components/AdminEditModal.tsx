@@ -167,6 +167,17 @@ export function AdminEditModal({
             />
           </div>
 
+          <div>
+            {formData.image && (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={formData.image}
+                alt="Movie Poster"
+                className="w-full h-auto max-h-60 object-contain rounded-md border border-white/20 mb-2"
+              />
+            )}
+          </div>
+
           <div className="space-y-2">
             <Label htmlFor="videoUrl">Video URL (Optional)</Label>
             <Input
@@ -178,6 +189,18 @@ export function AdminEditModal({
               className="bg-black border-white/20 text-white"
               placeholder="https://example.com/video.mp4"
             />
+          </div>
+
+          <div>
+            {formData.videoUrl && (
+              <iframe
+                src={formData.videoUrl}
+                loading="lazy"
+                allow="accelerometer; gyroscope;  encrypted-media; picture-in-picture;"
+                allowFullScreen
+                className="w-full h-full rounded-md border border-white/20"
+              ></iframe>
+            )}
           </div>
 
           <div className="grid grid-cols-2 gap-4">

@@ -75,14 +75,14 @@ export function PlayVideo() {
         </Button>
       </div>
 
-      {/* Video Player */}
+      {/* Video Player ,autoplay */}
       <div className="relative bg-black">
         <div className="container mx-auto">
           <div className="aspect-video bg-black">
             <iframe
               src={movie.videoUrl}
               loading="lazy"
-              allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
+              allow="accelerometer; gyroscope; encrypted-media; picture-in-picture;"
               allowFullScreen
               className="w-full h-full rounded-md border-0"
             ></iframe>

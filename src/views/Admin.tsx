@@ -24,6 +24,7 @@ export function Admin() {
   const [loading, setLoading] = useState(true);
   const { user, signOut } = useAuth();
   const navigate = useNavigate();
+  const [search, setSearch] = useState("");
 
   const fetchMovies = async () => {
     try {
@@ -103,6 +104,10 @@ export function Admin() {
     }
   };
 
+  const filteredMovies = movies.filter((movie) =>
+    movie.title.toLowerCase().includes(search.toLowerCase())
+  );
+
   if (loading) {
     return (
       <div className="min-h-screen bg-black text-white flex items-center justify-center">
@@ -139,6 +144,16 @@ export function Admin() {
             Add New Movie
           </Button>
         </div>
+        <div className="mb-4">
+          <p className="text-sm font-semibold mb-2">Search Movie Title</p>
+          <input
+            type="search"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="border border-gray-300/50 w-full p-2 rounded-lg "
+            placeholder="Search..."
+          />
+        </div>
 
         <div className="bg-white/5 rounded-lg overflow-hidden">
           <div className="overflow-auto min-h-[500px]">
@@ -157,7 +172,7 @@ export function Admin() {
                 </tr>
               </thead>
               <tbody>
-                {movies.map((movie) => (
+                {filteredMovies.map((movie) => (
                   <tr
                     key={movie.id}
                     className="border-b border-white/10 hover:bg-white/5 transition-colors"

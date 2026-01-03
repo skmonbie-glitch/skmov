@@ -13,6 +13,7 @@ export type Movie = {
   director: string;
   duration: string;
   casts: Array<string>;
+  country?: string;
 };
 
 export const getMoviesByType = (movies: Movie[], type: "movie" | "tv") => {

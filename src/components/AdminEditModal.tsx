@@ -49,6 +49,7 @@ export function AdminEditModal({
     director: "",
     casts: [],
     duration: "",
+    country: "",
   });
 
   useEffect(() => {
@@ -69,6 +70,7 @@ export function AdminEditModal({
         director: "",
         casts: [],
         duration: "",
+        country: "",
       });
     }
   }, [movie]);
@@ -203,7 +205,7 @@ export function AdminEditModal({
             )}
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-3 gap-2">
             <div className="space-y-2">
               <Label htmlFor="genre">Genre</Label>
               <Select
@@ -241,6 +243,19 @@ export function AdminEditModal({
                   <SelectItem value="tv">TV Show</SelectItem>
                 </SelectContent>
               </Select>
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="country">Country</Label>
+              <Input
+                id="country"
+                required
+                value={formData.country || ""}
+                onChange={(e) =>
+                  setFormData({ ...formData, country: e.target.value })
+                }
+                className="bg-black border-white/20 text-white"
+                placeholder="Country of origin"
+              />
             </div>
           </div>
 

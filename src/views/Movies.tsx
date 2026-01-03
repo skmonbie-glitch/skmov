@@ -1,11 +1,22 @@
 import { MovieCard } from "../components/MovieCard";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "../components/ui/button";
 import { Filter } from "lucide-react";
 import { useMovieStore } from "../stores/movieStore";
+import { useSearchParams } from "react-router-dom";
+import { MovieGridWithSkeleton } from "@/components/MovieGridWithSkeleton";
 
 export function Movies() {
-  const { movies } = useMovieStore();
+  const { movies, fetchMovies, loading } = useMovieStore();
+
+  useEffect(() => {
+    if (movies.length === 0) {
+      fetchMovies();
+    }
+  }, [movies.length, fetchMovies]);
+
+  const [searchParams] = useSearchParams();
+  const countryParam = searchParams.get("country");
 
   const [selectedGenre, setSelectedGenre] = useState<string>("All");
   const [sortBy, setSortBy] = useState<"rating" | "year">("rating");
@@ -13,7 +24,15 @@ export function Movies() {
   const genres = ["All", ...Array.from(new Set(movies.map((m) => m.genre)))];
 
   const filteredMovies = movies
-    .filter((movie) => selectedGenre === "All" || movie.genre === selectedGenre)
+    .filter((movie) => {
+      const genreMatch =
+        selectedGenre === "All" || movie.genre === selectedGenre;
+
+      const countryMatch = !countryParam || movie.country === countryParam;
+      //  console.log("countryParam:", countryParam, "movie.country:", movie);
+
+      return genreMatch && countryMatch;
+    })
     .sort((a, b) => {
       if (sortBy === "rating") return b.rating - a.rating;
       return b.year.localeCompare(a.year);
@@ -97,7 +116,15 @@ export function Movies() {
             Showing {filteredMovies.length}{" "}
             {filteredMovies.length === 1 ? "movie" : "movies"}
           </p>
+          {countryParam && (
+            <p className="text-white/60 mt-2">
+              Country: <span className="capitalize">{countryParam}</span>
+            </p>
+          )}
         </div>
+        {loading && (
+          <MovieGridWithSkeleton movies={movies} isLoading={loading} />
+        )}
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
           {filteredMovies.map((movie) => (
             <MovieCard key={movie.id} {...movie} />

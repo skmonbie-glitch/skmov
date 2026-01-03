@@ -13,6 +13,7 @@ import {
   Rocket,
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import { Button } from "../components/ui/button";
 import { useEffect } from "react";
 import { useMovieStore } from "../stores/movieStore";
 import { MovieGridWithSkeleton } from "@/components/MovieGridWithSkeleton";
@@ -66,6 +67,46 @@ export function Home() {
           <h2 className="text-white mb-6 text-2xl font-semibold">
             Browse by Category
           </h2>
+          <div className="flex gap-2 mb-6">
+            <Link to="/movies">
+              <Button
+                size="sm"
+                variant="outline"
+                className="border-white/20 bg-white "
+              >
+                All
+              </Button>
+            </Link>
+            <Link to="/movies?country=korea">
+              <Button
+                size="sm"
+                variant="outline"
+                className="border-white/20 bg-gray-100/10 text-white"
+              >
+                🇰🇷 Korean
+              </Button>
+            </Link>
+
+            <Link to="/movies?country=china">
+              <Button
+                size="sm"
+                variant="outline"
+                className="border-white/20 bg-gray-100/10 text-white"
+              >
+                🇨🇳 Chinese
+              </Button>
+            </Link>
+
+            <Link to="/movies?country=japan">
+              <Button
+                size="sm"
+                variant="outline"
+                className="border-white/20 bg-gray-100/10 text-white"
+              >
+                🇯🇵 Japanese
+              </Button>
+            </Link>
+          </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
             <Link to="/movies">
               <CategoryCard

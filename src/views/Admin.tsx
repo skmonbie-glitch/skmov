@@ -163,6 +163,7 @@ export function Admin() {
                   <th className="px-4 py-3 text-left">Image</th>
                   <th className="px-4 py-3 text-left">Title</th>
                   <th className="px-4 py-3 text-left">Type</th>
+                  <th className="px-4 py-3 text-left">Country</th>
                   <th className="px-4 py-3 text-left">Genre</th>
                   <th className="px-4 py-3 text-left">Year</th>
                   <th className="px-4 py-3 text-left">Rating</th>
@@ -198,6 +199,7 @@ export function Admin() {
                         {movie.type === "movie" ? "Movie" : "TV Show"}
                       </span>
                     </td>
+                    <td className="px-4 py-3">{movie.country || "N/A"}</td>
                     <td className="px-4 py-3">{movie.genre}</td>
                     <td className="px-4 py-3">{movie.year}</td>
                     <td className="px-4 py-3">⭐ {movie.rating}</td>

@@ -96,51 +96,53 @@ export function MovieInfoModal({
             </div>
           </div>
 
-          {/* Description */}
-          <p className="text-white/70 leading-relaxed mb-6">
-            {movie.description}
-          </p>
+          <div className="max-h-40 sm:max-h-60 overflow-y-auto pr-2">
+            {/* Description */}
+            <p className="text-white/70 leading-relaxed mb-6 line-clamp-5">
+              {movie.description}
+            </p>
 
-          {/* Additional Info */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-4 bg-white/5 border border-white/10 rounded-lg mb-6">
-            <div>
-              <h3 className="text-white/60 mb-1">Director</h3>
+            {/* Additional Info */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-4 bg-white/5 border border-white/10 rounded-lg mb-6">
+              <div>
+                <h3 className="text-white/60 mb-1">Director</h3>
 
-              <p className="text-white">{movie.director || "Unknown"}</p>
-            </div>
-            <div>
-              <h3 className="text-white/60 mb-1">Cast</h3>
-              <div className="flex gap-1 text-white">
-                {(() => {
-                  const castString = movie?.casts?.join(" | ") || "";
-                  const truncated =
-                    castString.length > 20
-                      ? castString.slice(0, 20) + "..."
-                      : castString;
-                  return truncated || "N/A";
-                })()}
+                <p className="text-white">{movie.director || "Unknown"}</p>
+              </div>
+              <div>
+                <h3 className="text-white/60 mb-1">Cast</h3>
+                <div className="flex gap-1 text-white">
+                  {(() => {
+                    const castString = movie?.casts?.join(" | ") || "";
+                    const truncated =
+                      castString.length > 20
+                        ? castString.slice(0, 20) + "..."
+                        : castString;
+                    return truncated || "N/A";
+                  })()}
+                </div>
+              </div>
+              <div>
+                <h3 className="text-white/60 mb-1">Duration</h3>
+                <p className="text-white">{movie.duration || "N/A"}</p>
               </div>
             </div>
-            <div>
-              <h3 className="text-white/60 mb-1">Duration</h3>
-              <p className="text-white">{movie.duration || "N/A"}</p>
-            </div>
+            {genres.length > 0 && (
+              <div className="mb-6">
+                <h3 className="text-white/60 mb-2 text-sm">Genres</h3>
+                <div className="flex flex-wrap gap-2">
+                  {genres.map((genre) => (
+                    <span
+                      key={genre}
+                      className="px-3 py-1 bg-white/10 border border-white/20 capitalize rounded text-white/90 text-sm"
+                    >
+                      {genre}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
-          {genres.length > 0 && (
-            <div className="mb-6">
-              <h3 className="text-white/60 mb-2 text-sm">Genres</h3>
-              <div className="flex flex-wrap gap-2">
-                {genres.map((genre) => (
-                  <span
-                    key={genre}
-                    className="px-3 py-1 bg-white/10 border border-white/20 capitalize rounded text-white/90 text-sm"
-                  >
-                    {genre}
-                  </span>
-                ))}
-              </div>
-            </div>
-          )}
 
           {/* Action Buttons */}
           <div className="flex gap-3">

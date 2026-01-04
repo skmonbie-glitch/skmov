@@ -55,7 +55,7 @@ export function Hero() {
         </div>
 
         <div className="relative container mx-auto px-4 h-full flex items-end md:items-center">
-          <div className="max-w-2xl pb-12 md:pb-0">
+          <div className="sm:max-w-2xl  w-full pb-12 md:pb-0">
             <div className="inline-block px-3 py-1 bg-white/10 border border-white/20 rounded mb-4 backdrop-blur-sm">
               <span className="text-white/90">Featured</span>
             </div>
@@ -68,12 +68,21 @@ export function Hero() {
               {movie.description}
             </p>
 
-            <div className="flex items-center gap-3 mb-6">
+            <div className="flex flex-wrap items-center gap-3 mb-6">
               <span className="text-white/60">{movie.year}</span>
               <span className="text-white/40">•</span>
               <span className="text-white/60">⭐ {movie.rating}</span>
               <span className="text-white/40">•</span>
-              <span className="text-white/60">{movie.genre}</span>
+              <span className="text-white/60 flex flex-wrap gap-2 ">
+                {movie.genre.map((g) => (
+                  <span
+                    key={g}
+                    className="px-3 py-1 bg-white/10 border border-white/20 capitalize rounded text-white/90 text-sm"
+                  >
+                    {g}
+                  </span>
+                ))}
+              </span>
             </div>
 
             <div className="flex flex-col sm:flex-row gap-3">

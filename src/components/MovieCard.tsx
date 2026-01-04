@@ -64,7 +64,18 @@ export function MovieCard({
           </div>
 
           <h3 className="text-white mb-1">{title}</h3>
-          <p className="text-white/60 mb-3">{genre}</p>
+          <p className="text-white/60 mb-3">
+            <span className="text-white/60 flex gap-2">
+              {genre.map((g) => (
+                <span
+                  key={g}
+                  className="px-3 py-1 bg-white/10 border border-white/20 capitalize rounded text-white/90 text-sm"
+                >
+                  {g}
+                </span>
+              ))}
+            </span>
+          </p>
 
           <div className="flex gap-2">
             <Button

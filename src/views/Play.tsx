@@ -3,7 +3,6 @@ import {
   ArrowLeft,
   Star,
   Calendar,
-  Film as FilmIcon,
   // Play,
   // Plus,
 } from "lucide-react";

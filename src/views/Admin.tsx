@@ -108,26 +108,6 @@ export function Admin() {
     movie.title.toLowerCase().includes(search.toLowerCase())
   );
 
-  // 🔧 Normalize genre once
-  const normalizeGenres = (genre: any): string[] => {
-    if (Array.isArray(genre)) {
-      return genre.map((g) => (typeof g === "string" ? g : g.name));
-    }
-
-    if (typeof genre === "string") {
-      return genre.split(",").map((g) => g.trim());
-    }
-
-    return [];
-  };
-
-  // 🔧 Build genre filter buttons correctly
-  const genres = [
-    ...Array.from(
-      new Set(filteredMovies.flatMap((show) => normalizeGenres(show.genre)))
-    ),
-  ];
-
   if (loading) {
     return (
       <div className="min-h-screen bg-black text-white flex items-center justify-center">

@@ -21,15 +21,31 @@ export function Movies() {
   const [selectedGenre, setSelectedGenre] = useState<string>("All");
   const [sortBy, setSortBy] = useState<"rating" | "year">("rating");
 
-  const genres = ["All", ...Array.from(new Set(movies.map((m) => m.genre)))];
+  const normalizeGenres = (genre: any): string[] => {
+    if (Array.isArray(genre)) {
+      return genre.map((g) => (typeof g === "string" ? g : g.name));
+    }
+
+    if (typeof genre === "string") {
+      return genre.split(",").map((g) => g.trim());
+    }
+
+    return [];
+  };
+
+  const genres = [
+    "All",
+    ...Array.from(new Set(movies.flatMap((m) => normalizeGenres(m.genre)))),
+  ];
 
   const filteredMovies = movies
     .filter((movie) => {
+      const movieGenres = normalizeGenres(movie.genre);
+
       const genreMatch =
-        selectedGenre === "All" || movie.genre === selectedGenre;
+        selectedGenre === "All" || movieGenres.includes(selectedGenre);
 
       const countryMatch = !countryParam || movie.country === countryParam;
-      //  console.log("countryParam:", countryParam, "movie.country:", movie);
 
       return genreMatch && countryMatch;
     })
@@ -70,7 +86,7 @@ export function Movies() {
                     className={
                       selectedGenre === genre
                         ? "bg-white text-black hover:bg-white/90"
-                        : "border-white/20 text-white bg-white/10"
+                        : "border-white/20 text-white bg-white/10 capitalize"
                     }
                   >
                     {genre}

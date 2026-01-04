@@ -12,10 +12,36 @@ export function TVShows() {
   const [selectedGenre, setSelectedGenre] = useState<string>("All");
   const [sortBy, setSortBy] = useState<"rating" | "year">("rating");
 
-  const genres = ["All", ...Array.from(new Set(allShows.map((s) => s.genre)))];
+  // 🔧 Normalize genre once
+  const normalizeGenres = (genre: any): string[] => {
+    if (Array.isArray(genre)) {
+      return genre.map((g) => (typeof g === "string" ? g : g.name));
+    }
+
+    if (typeof genre === "string") {
+      return genre.split(",").map((g) => g.trim());
+    }
+
+    return [];
+  };
+
+  // 🔧 Build genre filter buttons correctly
+  const genres = [
+    "All",
+    ...Array.from(
+      new Set(allShows.flatMap((show) => normalizeGenres(show.genre)))
+    ),
+  ];
 
   const filteredShows = allShows
-    .filter((show) => selectedGenre === "All" || show.genre === selectedGenre)
+    .filter((show) => {
+      const showGenres = normalizeGenres(show.genre);
+
+      const genreMatch =
+        selectedGenre === "All" || showGenres.includes(selectedGenre);
+
+      return genreMatch;
+    })
     .sort((a, b) => {
       if (sortBy === "rating") return b.rating - a.rating;
       return b.year.localeCompare(a.year);
@@ -53,7 +79,7 @@ export function TVShows() {
                     className={
                       selectedGenre === genre
                         ? "bg-white text-black hover:bg-white/90"
-                        : "border-white/20 text-white bg-white/10"
+                        : "border-white/20 text-white bg-white/10 capitalize"
                     }
                   >
                     {genre}
@@ -61,6 +87,7 @@ export function TVShows() {
                 ))}
               </div>
             </div>
+
             <div className="flex items-center gap-2">
               <span className="text-white/60">Sort by:</span>
               <Button
@@ -100,6 +127,7 @@ export function TVShows() {
             {filteredShows.length === 1 ? "show" : "shows"}
           </p>
         </div>
+
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
           {filteredShows.map((show) => (
             <MovieCard key={show.id} {...show} />

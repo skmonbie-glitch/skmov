@@ -64,7 +64,9 @@ export function Hero() {
               {movie.title}
             </h1>
 
-            <p className="text-white/80 mb-6 md:mb-8">{movie.description}</p>
+            <p className="text-white/80 mb-6 md:mb-8 line-clamp-3">
+              {movie.description}
+            </p>
 
             <div className="flex items-center gap-3 mb-6">
               <span className="text-white/60">{movie.year}</span>
@@ -92,6 +94,23 @@ export function Hero() {
             </div>
           </div>
         </div>
+
+        {featuredMovies.length > 1 && (
+          <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex gap-2 z-10">
+            {featuredMovies.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setIndex(i)}
+                className={`h-1 rounded-full transition-all ${
+                  i === index
+                    ? "w-8 bg-white"
+                    : "w-6 bg-white/40 hover:bg-white/60"
+                }`}
+                aria-label={`Go to slide ${i + 1}`}
+              />
+            ))}
+          </div>
+        )}
       </div>
       <MovieInfoModal
         open={isModalOpen}

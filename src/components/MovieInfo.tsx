@@ -24,6 +24,12 @@ export function MovieInfoModal({
     onOpenChange(false);
   };
 
+  const genres = Array.isArray(movie.genre)
+    ? movie.genre.map((g: any) => (typeof g === "string" ? g : g.name))
+    : typeof movie.genre === "string"
+    ? (movie.genre as string).split(",").map((g) => g.trim())
+    : [];
+
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-4xl p-0 bg-black border border-white/20 overflow-hidden">
@@ -120,6 +126,21 @@ export function MovieInfoModal({
               <p className="text-white">{movie.duration || "N/A"}</p>
             </div>
           </div>
+          {genres.length > 0 && (
+            <div className="mb-6">
+              <h3 className="text-white/60 mb-2 text-sm">Genres</h3>
+              <div className="flex flex-wrap gap-2">
+                {genres.map((genre) => (
+                  <span
+                    key={genre}
+                    className="px-3 py-1 bg-white/10 border border-white/20 capitalize rounded text-white/90 text-sm"
+                  >
+                    {genre}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
 
           {/* Action Buttons */}
           <div className="flex gap-3">
@@ -130,12 +151,6 @@ export function MovieInfoModal({
               <Play className="h-5 w-5 mr-2" />
               Watch Now
             </Button>
-            {/* <Button
-              variant="outline"
-              className="border-white/20 text-white bg-white/10"
-            >
-              Add to List
-            </Button> */}
           </div>
         </div>
       </DialogContent>

@@ -6,7 +6,7 @@ export type Movie = {
   rating: number;
   year: string;
   title: string;
-  genre: string;
+  genre: string[];
   description: string;
   image: string;
   videoUrl: string;
@@ -39,7 +39,7 @@ export const searchMovies = (movies: Movie[], query: string) => {
   return movies.filter(
     (movie) =>
       movie.title.toLowerCase().includes(lowerQuery) ||
-      movie.genre.toLowerCase().includes(lowerQuery) ||
+      movie.genre.some((g) => g.toLowerCase().includes(lowerQuery)) ||
       movie.description.toLowerCase().includes(lowerQuery)
   );
 };

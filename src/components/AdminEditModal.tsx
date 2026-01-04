@@ -40,7 +40,7 @@ export function AdminEditModal({
     year: "",
     rating: 0,
     image: "",
-    genre: "action",
+    genre: [],
     type: "movie",
     description: "",
     trending: false,
@@ -61,7 +61,7 @@ export function AdminEditModal({
         year: "",
         rating: 0,
         image: "",
-        genre: "action",
+        genre: [],
         type: "movie",
         description: "",
         trending: false,
@@ -207,27 +207,6 @@ export function AdminEditModal({
 
           <div className="grid grid-cols-3 gap-2">
             <div className="space-y-2">
-              <Label htmlFor="genre">Genre</Label>
-              <Select
-                value={formData.genre}
-                onValueChange={(
-                  value: "horror" | "sci-fi" | "action" | "romance" | "comedy"
-                ) => setFormData({ ...formData, genre: value })}
-              >
-                <SelectTrigger className="bg-black border-white/20 text-white">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent className="bg-black border-white/20 text-white">
-                  <SelectItem value="horror">Horror</SelectItem>
-                  <SelectItem value="sci-fi">Sci-Fi</SelectItem>
-                  <SelectItem value="action">Action</SelectItem>
-                  <SelectItem value="romance">Romance</SelectItem>
-                  <SelectItem value="comedy">Comedy</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-
-            <div className="space-y-2">
               <Label htmlFor="type">Type</Label>
               <Select
                 value={formData.type}
@@ -257,6 +236,25 @@ export function AdminEditModal({
                 placeholder="Country of origin"
               />
             </div>
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="genre">Genres (comma-separated)</Label>
+            <Input
+              id="genre"
+              value={formData.genre?.join(", ") || ""}
+              onChange={(e) =>
+                setFormData({
+                  ...formData,
+                  genre: e.target.value
+                    .split(",")
+                    .map((g) => g.trim())
+                    .filter(Boolean),
+                })
+              }
+              className="bg-black border-white/20 text-white"
+              placeholder="Action, Drama, Comedy"
+            />
           </div>
 
           <div className="space-y-2">

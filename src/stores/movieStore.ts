@@ -70,14 +70,14 @@ export const useMovieStore = create<MovieStore>((set, get) => ({
     return get().movies.filter(
       (movie) =>
         movie.title.toLowerCase().includes(lowerQuery) ||
-        movie.genre.toLowerCase().includes(lowerQuery) ||
+        movie.genre.some((g) => g.toLowerCase().includes(lowerQuery)) ||
         movie.description.toLowerCase().includes(lowerQuery)
     );
   },
   // NEW — Category Counts
   getCountByGenre: (genre) => {
-    return get().movies.filter(
-      (movie) => movie.genre.toLowerCase() === genre.toLowerCase()
+    return get().movies.filter((movie) =>
+      movie.genre.some((g) => g.toLowerCase().includes(genre.toLowerCase()))
     ).length;
   },
 

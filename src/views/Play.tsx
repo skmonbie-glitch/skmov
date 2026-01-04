@@ -120,10 +120,18 @@ export function PlayVideo() {
                       <span className="text-white/60">{movie.year}</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <FilmIcon className="size-5 text-white/60" />
-                      <span className="text-white/60">{movie.genre}</span>
+                      <span className="text-white/60 flex flex-wrap gap-2 ">
+                        {movie.genre.map((g) => (
+                          <span
+                            key={g}
+                            className="px-3 py-1 bg-white/10 border border-white/20 capitalize rounded-full text-white/90 text-sm"
+                          >
+                            {g}
+                          </span>
+                        ))}
+                      </span>
                     </div>
-                    <div className="px-3 py-1 bg-white/10 border border-white/20 rounded">
+                    <div className="px-3 py-1 bg-white/10 border text-sm border-white/20 rounded">
                       <span className="text-white/90">
                         {movie.type === "movie" ? "Movie" : "TV Show"}
                       </span>

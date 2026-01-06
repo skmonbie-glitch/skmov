@@ -1,6 +1,6 @@
 import { Dialog, DialogContent, DialogTitle } from "./ui/dialog";
 import { Button } from "./ui/button";
-import { Play, Star, Calendar, Film as FilmIcon, X } from "lucide-react";
+import { Play, Star, Calendar, X } from "lucide-react";
 import { ImageWithFallback } from "../figma/ImageWithFallback";
 import { useNavigate } from "react-router-dom";
 

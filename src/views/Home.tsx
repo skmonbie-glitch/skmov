@@ -67,7 +67,7 @@ export function Home() {
           <h2 className="text-white mb-6 text-2xl font-semibold">
             Browse by Category
           </h2>
-          <div className="flex gap-2 mb-6">
+          <div className="flex gap-2 mb-6 overflow-x-auto">
             <Link to="/movies">
               <Button
                 size="sm"

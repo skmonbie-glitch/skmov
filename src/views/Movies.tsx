@@ -7,7 +7,11 @@ import { useSearchParams } from "react-router-dom";
 import { MovieGridWithSkeleton } from "@/components/MovieGridWithSkeleton";
 
 export function Movies() {
-  const { movies, fetchMovies, loading } = useMovieStore();
+  const { fetchMovies, loading } = useMovieStore();
+
+  const { getMoviesByType } = useMovieStore();
+
+  const movies = getMoviesByType("movie");
 
   useEffect(() => {
     if (movies.length === 0) {

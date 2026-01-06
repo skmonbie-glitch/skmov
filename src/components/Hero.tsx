@@ -77,7 +77,7 @@ export function Hero() {
                 {movie.genre.map((g) => (
                   <span
                     key={g}
-                    className="px-3 py-1 bg-white/10 border border-white/20 capitalize rounded text-white/90 text-sm"
+                    className="px-3 py-1 bg-white/10 border border-white/20 capitalize rounded backdrop-blur-sm text-white/90 text-sm"
                   >
                     {g}
                   </span>

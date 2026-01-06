@@ -85,8 +85,16 @@ export function MovieInfoModal({
             </div>
             <span className="text-white/40">•</span>
             <div className="flex items-center gap-1">
-              <FilmIcon className="h-4 w-4 text-white/60" />
-              <span className="text-white/80">{movie.genre}</span>
+              <div className="flex flex-wrap gap-2">
+                {movie.genre.map((g) => (
+                  <span
+                    key={g}
+                    className="px-3 py-1 bg-white/10 border border-white/20 capitalize rounded-full text-white/90 text-sm"
+                  >
+                    {g}
+                  </span>
+                ))}
+              </div>
             </div>
             <span className="text-white/40">•</span>
             <div className="px-3 py-1 bg-white/10 border border-white/20 rounded">

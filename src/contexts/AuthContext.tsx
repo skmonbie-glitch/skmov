@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import type { ReactNode } from "react";
 import type { User } from "firebase/auth";
+import allowedEmails from "./AllowedEmails";
 import {
   signInWithPopup,
   GoogleAuthProvider,
@@ -18,12 +19,6 @@ interface AuthContextType {
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
-
-const AUTHORIZED_EMAILS = [
-  "deudajm@gmail.com",
-  "skmonbie@gmail.com",
-  "seoteam623@gmail.com",
-];
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
@@ -58,7 +53,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   };
 
-  const isAuthorized = AUTHORIZED_EMAILS.includes(user?.email || "");
+  const isAuthorized = allowedEmails.includes(user?.email || "");
 
   const value = {
     user,

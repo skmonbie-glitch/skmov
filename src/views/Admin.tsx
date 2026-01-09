@@ -202,9 +202,12 @@ export function Admin() {
                     <td className="px-4 py-3">{movie.country || "N/A"}</td>
                     <td className="px-4 py-3">
                       <div className="flex flex-wrap gap-2">
-                        {movie.genre.map((genres) => (
-                          <div className="border-white/20 text-xs px-1 rounded-full  text-white bg-white/10 capitalize">
-                            {genres}
+                        {movie.genre.map((g) => (
+                          <div
+                            key={g}
+                            className="border-white/20 text-xs px-1 rounded-full  text-white bg-white/10 capitalize"
+                          >
+                            {g}
                           </div>
                         ))}
                       </div>

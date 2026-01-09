@@ -5,6 +5,7 @@ import { Button } from "../components/ui/button";
 import { LogIn, AlertCircle } from "lucide-react";
 import { toast } from "sonner";
 import { Toaster } from "@/components/ui/sonner";
+import allowedEmails from "../contexts/AllowedEmails";
 
 export function Login() {
   const { signInWithGoogle, isAuthorized, loading: authLoading } = useAuth();
@@ -25,11 +26,6 @@ export function Login() {
     setUnauthorizedEmail(null);
     try {
       const user = await signInWithGoogle();
-      const allowedEmails = [
-        "deudajm@gmail.com",
-        "skmonbie@gmail.com",
-        "seoteam623@gmail.com",
-      ];
 
       if (!user.email || !allowedEmails.includes(user.email)) {
         setUnauthorizedEmail(user.email);

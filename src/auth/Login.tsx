@@ -25,7 +25,11 @@ export function Login() {
     setUnauthorizedEmail(null);
     try {
       const user = await signInWithGoogle();
-      const allowedEmails = ["deudajm@gmail.com", "skmonbie@gmail.com"];
+      const allowedEmails = [
+        "deudajm@gmail.com",
+        "skmonbie@gmail.com",
+        "seoteam623@gmail.com",
+      ];
 
       if (!user.email || !allowedEmails.includes(user.email)) {
         setUnauthorizedEmail(user.email);
